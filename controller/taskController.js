@@ -3,8 +3,7 @@ const Task = require("../model/taskModel");
 // --- CREATE CONTROLLER ---
 const createTask = async (req, res) => {
   try {
-    const { title, description, dueDate, priority, status, completed } =
-      req.body;
+    const { title, description, dueDate, priority, completed } = req.body;
 
     if (!title || title.trim() === "") {
       res.status(400).json({ message: "Title is required!" });
@@ -19,7 +18,6 @@ const createTask = async (req, res) => {
       description,
       dueDate,
       priority,
-      status,
       completed,
       user: req.user._id,
     });
@@ -109,7 +107,6 @@ const updateTask = async (req, res) => {
     task.description = description || task.description;
     task.dueDate = dueDate || task.dueDate;
     task.priority = priority || task.priority;
-    task.status = status || task.status;
     task.completed = completed !== undefined ? completed : task.completed;
 
     await task.save();
