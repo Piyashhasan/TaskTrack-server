@@ -16,10 +16,9 @@ app.use(express.urlencoded({ extended: true }));
 // --- DATA BASE connection ---
 const dbConnection = async () => {
   try {
-    // const connection = await mongoose.connect(
-    //   `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.nzgny.mongodb.net/EcommerceProduct?retryWrites=true&w=majority&appName=Cluster0`
-    // );
-    await mongoose.connect("mongodb://127.0.0.1:27017/TaskTrack");
+    const connection = await mongoose.connect(
+      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.xgqus.mongodb.net/TaskTrack?retryWrites=true&w=majority&appName=Cluster0`
+    );
     console.log("Successfully DB connected...!");
   } catch (err) {
     console.log("DB Connection Failed...!");
