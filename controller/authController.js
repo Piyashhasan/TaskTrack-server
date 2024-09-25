@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../model/userModel");
 
+// --- SIGN UP CONTROLLER ---
 const signUp = async (req, res) => {
   try {
     const { fullName, email, password } = req.body;
@@ -9,7 +10,7 @@ const signUp = async (req, res) => {
 
     if (user) {
       return res.status(409).json({
-        message: "User is already exist, you can login",
+        message: "User is already exist, Please login",
         success: false,
       });
     }
@@ -22,7 +23,7 @@ const signUp = async (req, res) => {
     await userModel.save();
 
     res.status(201).json({
-      message: "SignUp successfully",
+      message: "Sign up successfully",
       success: true,
     });
   } catch (err) {
@@ -34,20 +35,24 @@ const signUp = async (req, res) => {
   }
 };
 
+// --- SIGN IN CONTROLLER ---
 const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    const errorMsg = "Auth failed email or password is wrong";
 
     if (!user) {
-      return res.status(403).json({ message: errorMsg, success: false });
+      return res
+        .status(403)
+        .json({ message: "User not found, Please sign up", success: false });
     }
 
     const isPassEqual = await bcrypt.compare(password, user.password);
 
     if (!isPassEqual) {
-      return res.status(403).json({ message: errorMsg, success: false });
+      return res
+        .status(403)
+        .json({ message: "Password not match ", success: false });
     }
 
     // --- jwt token generate ---
@@ -58,11 +63,11 @@ const signIn = async (req, res) => {
     );
 
     res.status(200).json({
-      message: "SignIn Success",
+      message: "Sign in Success",
       success: true,
       jwtToken,
       email,
-      name: user.name,
+      fullName: user.fullName,
     });
   } catch (err) {
     console.log("--- Error form sign in controller ---", err.message);

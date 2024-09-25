@@ -6,6 +6,7 @@ const app = express();
 const PORT = 5000;
 const errorHandler = require("./middleware/errorHandler");
 const authRouter = require("./routes/authRoutes");
+const taskRouter = require("./routes/taskRoutes");
 
 // --- common middleware ---
 app.use(cors());
@@ -25,8 +26,9 @@ const dbConnection = async () => {
   }
 };
 
-// --- product api endpoint ---
+// --- App api endpoint ---
 app.use("/auth", authRouter);
+app.use("/task", taskRouter);
 
 // --- root api endpoint ---
 app.get("/", (req, res) => {
