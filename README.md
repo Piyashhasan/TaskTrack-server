@@ -1,6 +1,6 @@
 ![Cloud Canvas](https://task-tracke-app.netlify.app/assets/banner-C0hdyrAz.png)
 
-**[Server Live link](https://task-track-server.vercel.app)**
+**[Server link](https://task-track-server.vercel.app)**
 
 **[Live link](https://task-tracke-app.netlify.app/home)**
 
